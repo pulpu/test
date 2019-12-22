@@ -1,4 +1,5 @@
 @import "components/map/filterSpots";
+@import "components/map/markerComponent";
 
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
@@ -9,6 +10,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: red;
 }
 
 code {

@@ -2,9 +2,6 @@ import React from 'react';
 import API from './api';
 
 class LoginApi extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     async login(username, password) {
         API.post('/login', {

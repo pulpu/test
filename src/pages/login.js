@@ -21,7 +21,6 @@ class Login extends Component {
         });
     };
     componentDidMount() {
-        console.log('>>>>>', process.env.REACT_APP_GOOGLE_KEY)
 
     }
 

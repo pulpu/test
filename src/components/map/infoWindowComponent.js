@@ -2,7 +2,7 @@ import React from 'react';
 import {InfoWindow} from "react-google-maps";
 import Button from "../forms/button";
 
-function InfoWindowComponent(props) {
+const  InfoWindowComponent = (props) => {
     return (
         (props.selectedMarker === props.id ) &&
         <InfoWindow key={props.id} onCloseClick={props.onToggleOpen}>

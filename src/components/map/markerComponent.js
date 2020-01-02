@@ -1,8 +1,9 @@
 import React from 'react';
 import {Marker} from "react-google-maps";
+
 import InfoWindowComponent from "./infoWindowComponent";
 
-function MarkerComponent(props) {
+const MarkerComponent = (props) => {
 
     return (
         <Marker
@@ -34,6 +35,6 @@ function MarkerComponent(props) {
 
         </Marker>
     );
-}
+};
 
 export default MarkerComponent;

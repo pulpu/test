@@ -4,6 +4,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Router from "./routes";
 
+import 'material-components-web/dist/material-components-web.min.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 

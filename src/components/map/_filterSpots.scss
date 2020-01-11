@@ -1,8 +1,32 @@
 .filter {
   &__button {
-    z-index: 9;
-    right: 2%;
-    top: 2%;
     position: absolute;
+    top: 10%;
+    right: 5%;
   }
+  &__wrapper {
+    position: absolute;
+    display: block;
+    padding: 16px;
+    top: 1%;
+    right: 1%;
+  }
+
+  &__content {
+    position: relative;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+    padding: 16px;
+
+    div {
+      width: 100%;
+    }
+  }
+
+
 }

@@ -9,9 +9,9 @@ const MapWrappedModal = withScriptjs(withGoogleMap(ModalMap));
 const MapWrapper = (props) => {
     console.log(props.lat, props.lng);
     return (
-        <div>
+        <div  className="map-wrapper">
         { !props.modal ?
-            (<div style={props.divStyle}>
+            (<div  style={props.divStyle}>
                 <MapWrapped
                     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${
                         process.env.REACT_APP_GOOGLE_KEY

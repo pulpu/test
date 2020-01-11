@@ -7,7 +7,6 @@ import FilterSpots from "../../components/map/filterSpots";
 import MarkerComponent from '../map/markerComponent'
 import AddMarkerModal from "./addMarkerModal";
 
-
 class Map extends React.Component {
     constructor(props){
         super(props)
@@ -18,12 +17,17 @@ class Map extends React.Component {
             originalSpotList:[],
             spotList: [],
             favouritesSpotList: [],
+            countryList:[],
             favouritesList:[],
+            filteredWindArray:[],
             ownPosition : {lat:0,lng:0},
             zoom: 2,
             selectedMarker: false,
             showAddModal: false,
+            showFilter: false,
             isOpen: false,
+            countryFilter:'',
+            windFilter:'',
             marker: {
                 lat: 0,
                 long: 0,
@@ -42,6 +46,10 @@ class Map extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.getSPopsAndFavourites = this.getSPopsAndFavourites.bind(this);
+        this.filterToggleButton = this.filterToggleButton.bind(this);
+        this.filterSpots = this.filterSpots.bind(this);
+        this.commonChange = this.commonChange.bind(this);
+        this.windChange = this.windChange.bind(this);
     }
 
 
@@ -56,6 +64,9 @@ class Map extends React.Component {
                 self.setState({
                     originalSpotList: response.data,
                     spotList: response.data,
+                    countryList: response.data.map(_element =>{
+                        return _element.country;
+                    })
                 })
             })
             .catch(function (error) {
@@ -127,14 +138,22 @@ class Map extends React.Component {
         )
     };
 
-    filterSpots(country, wind) {
-        let filterSpotList = [];
+    filterToggleButton() {
+        console.log('inter')
+        this.setState({
+            showFilter: !this.state.showFilter
+        })
+    }
 
-        if(country.length ) {
-            filterSpotList = this.state.spotList.filter(_spot => {
-                return _spot.country === country
+    filterSpots() {
+        let filterSpotList = [];
+console.log('state', this.state)
+
+         if(this.state.countryFilter.length ) {
+            filterSpotList = this.state.originalSpotList.filter(_spot => {
+                return _spot.country === this.state.countryFilter
             }).filter(_spot => {
-                return _spot.probability === wind
+                return _spot.probability === this.state.windFilter
             });
         }
 
@@ -148,6 +167,8 @@ class Map extends React.Component {
                 zoom: zoom
             })
         }
+
+        this.filterToggleButton();
     };
 
     showInfo(marker) {
@@ -208,6 +229,37 @@ class Map extends React.Component {
         })
     };
 
+    commonChange(event) {
+        console.log('event', event);
+        console.log('event.target.name', event.target.name);
+
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+
+        if (this.state.countryList.indexOf(event.target.value) > -1) {
+            console.log('>>>', event.target.value)
+            this.setState({
+                filteredWindArray: this.state.originalSpotList.filter(_element => {
+                    return _element.country === event.target.value;
+                }).map(_ele =>{
+                    return _ele.probability;
+                })
+            });
+        }
+
+        console.log('state', this.state);
+    }
+
+    windChange(event) {
+        console.log('event',event);
+
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+        console.log('windChange state ',this.state);
+    }
+
     handleChange(event, _value) {
         let value = event.target.value
         this.setState(prevState => ({
@@ -249,7 +301,14 @@ class Map extends React.Component {
     render(){
         return (
             <div>
-                <FilterSpots action={() => this.filterSpots('Romania', 73)}/>
+                <FilterSpots
+                    action={this.filterSpots}
+                    show={this.filterToggleButton}
+                    condition={this.state.showFilter}
+                    commonChange={this.commonChange}
+                    windChange={this.windChange}
+                    windArray={this.state.filteredWindArray}
+                />
 
                 <GoogleMap
                     zoom        ={this.state.zoom}
